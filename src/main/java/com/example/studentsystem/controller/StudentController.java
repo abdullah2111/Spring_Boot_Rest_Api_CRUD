@@ -1,0 +1,61 @@
+package com.example.studentsystem.controller;
+
+
+import com.example.studentsystem.dto.AddStudentRequestDto;
+import com.example.studentsystem.dto.StudentDto;
+import com.example.studentsystem.service.StudentService;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import org.apache.coyote.Response;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+
+@RequiredArgsConstructor
+@RequestMapping("/students")
+@RestController
+public class StudentController {
+
+    private final StudentService studentService;
+
+
+
+    @GetMapping
+    public ResponseEntity<List<StudentDto>> getAllStudent(){
+        return ResponseEntity.status(HttpStatus.OK).body(studentService.getAllStudents());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<StudentDto> getStudent(@PathVariable Long id){
+        return ResponseEntity.status(HttpStatus.OK).body(studentService.getStudentById(id));
+
+    }
+
+
+
+    @PostMapping("/create")
+    public ResponseEntity<StudentDto> CreateNewStudent(@RequestBody @Valid AddStudentRequestDto addStudentRequestDto){
+        return ResponseEntity.status(HttpStatus.CREATED).body(studentService.createNewStudent(addStudentRequestDto));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteAStudentById(@PathVariable Long id){
+        studentService.deleteStudentById(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+
+    @PutMapping("/{id}")
+    public ResponseEntity<StudentDto> updateStudent(@PathVariable Long id, @RequestBody AddStudentRequestDto addStudentRequestDto){
+        return ResponseEntity.status(HttpStatus.OK).body(studentService.updateStudent(id, addStudentRequestDto));
+    }
+
+
+
+
+
+
+}
