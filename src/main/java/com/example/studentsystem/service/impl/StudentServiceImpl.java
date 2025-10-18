@@ -11,6 +11,16 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 
+
+/**
+ * Default implementation of {@link StudentService} using Spring Data JPA.
+ * Maps between entities and DTOs and enforces simple existence checks.
+ *  Throws {@link IllegalArgumentException} when a student
+ * cannot be found by id.
+ *
+ * @author Abdullah Al Mamun
+ * @since 18-10-25
+ */
 @Service
 @RequiredArgsConstructor
 public class StudentServiceImpl implements StudentService {
@@ -18,6 +28,13 @@ public class StudentServiceImpl implements StudentService {
     private final StudentRepository studentRepository;
 
 
+
+
+    /**
+     * Returns all students.
+     *
+     * @return list of student DTOs (may be empty, never {@code null})
+     */
     @Override
     public List<StudentDto> getAllStudents() {
         List<Student> students = studentRepository.findAll();
@@ -25,6 +42,14 @@ public class StudentServiceImpl implements StudentService {
         return studentDtoList;
     }
 
+
+    /**
+     * Returns a student by id.
+     *
+     * @param id unique identifier of the student
+     * @return student DTO
+     * @throws IllegalArgumentException if no student is found with the given id
+     */
     @Override
     public StudentDto getStudentById(Long id) {
         Student student = studentRepository.findById(id).orElseThrow(()->  new IllegalArgumentException("Student not found with id"+id));
@@ -32,6 +57,14 @@ public class StudentServiceImpl implements StudentService {
         return studentDto;
     }
 
+
+
+    /**
+     * Deletes a student by id.
+     *
+     * @param id unique identifier of the student
+     * @throws IllegalArgumentException if no student is found with the given id
+     */
     @Override
     public StudentDto createNewStudent(AddStudentRequestDto addStudentRequestDto) {
         Student newStudent = new Student();
@@ -45,6 +78,15 @@ public class StudentServiceImpl implements StudentService {
     }
 
 
+
+    /**
+     * Updates an existing student.
+     *
+     * @param id unique identifier of the student to update
+     * @param addStudentRequestDto payload with new values for name and email
+     * @return updated student DTO
+     * @throws IllegalArgumentException if no student is found with the given id
+     */
     @Override
     public void deleteStudentById(Long id) {
         if(studentRepository.existsById(id)){
