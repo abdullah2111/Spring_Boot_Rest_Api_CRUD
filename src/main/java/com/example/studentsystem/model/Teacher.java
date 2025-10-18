@@ -12,7 +12,6 @@ import lombok.RequiredArgsConstructor;
  * Teacher entity representing teacher record in the system.
  * Persisted in the {@code teachers} table. Lombok generates getters, setters,
  * and toString.
- *
  * @author Abdullah Al Mamun
  * @since 18-10-25
  */
