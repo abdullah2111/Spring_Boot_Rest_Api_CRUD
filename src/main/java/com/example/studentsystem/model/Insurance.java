@@ -1,4 +1,43 @@
 package com.example.studentsystem.model;
 
+
+import jakarta.persistence.*;
+import jdk.jfr.Timestamp;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+
+import java.time.LocalDateTime;
+
+@Entity
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Insurance {
+
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false, unique = true, length = 50)
+    private String policyNumber;
+
+    @Column(nullable = false, length = 100)
+    private String provider;
+
+
+    @Column(nullable = false)
+    private String validUntil;
+
+
+    @CreationTimestamp
+    @Column(updatable = false, nullable = false)
+    private LocalDateTime createdAt;
+
+
+    @OneToOne(mappedBy = "insurance")
+    private Patient patient;
+
 }
