@@ -30,4 +30,7 @@ public class Doctor {
     @ManyToMany(mappedBy = "doctors")
     private Set<Department> departments = new HashSet<>();
 
+    @OneToMany(mappedBy = "doctor", cascade = CascadeType.MERGE)
+    private Set<Appointment> appointments = new HashSet<>();
+
 }

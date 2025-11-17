@@ -38,12 +38,29 @@ public class Patient {
     private String bloodGroup;
 
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name= "patient_insurance_id")
     private Insurance insurance;
 
-    @OneToMany(mappedBy = "patient")
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.PERSIST)
     private List<Appointment> appointments;
+
+
+
+    public void addAppointment(Appointment appointment) {
+        appointments.add(appointment);
+        appointment.setPatient(this);
+
+    }
+
+
+    public void removeAppointment(Appointment appointment) {
+        appointments.remove(appointment);
+        appointment.setPatient(null);
+    }
+
+
+
 
 
 
