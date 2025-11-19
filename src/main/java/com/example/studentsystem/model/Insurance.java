@@ -1,6 +1,7 @@
 package com.example.studentsystem.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jdk.jfr.Timestamp;
 import lombok.AllArgsConstructor;
@@ -8,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -29,14 +31,14 @@ public class Insurance {
 
 
     @Column(nullable = false)
-    private String validUntil;
+    private LocalDate validUntil;
 
 
     @CreationTimestamp
     @Column(updatable = false, nullable = false)
     private LocalDateTime createdAt;
 
-
+    @JsonIgnore
     @OneToOne(mappedBy = "insurance")
     private Patient patient;
 

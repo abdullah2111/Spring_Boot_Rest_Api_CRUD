@@ -2,16 +2,15 @@ package com.example.studentsystem.model;
 
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class Department {
@@ -24,7 +23,7 @@ public class Department {
     private String name;
 
     @OneToOne
-    private Doctor headDocotr;
+    private Doctor headDoctor;
 
 
     @ManyToMany

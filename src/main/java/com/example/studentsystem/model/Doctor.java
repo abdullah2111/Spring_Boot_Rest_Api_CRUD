@@ -1,15 +1,15 @@
 package com.example.studentsystem.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class Doctor {
@@ -28,9 +28,11 @@ public class Doctor {
     private String email;
 
     @ManyToMany(mappedBy = "doctors")
+    @JsonIgnore
     private Set<Department> departments = new HashSet<>();
 
     @OneToMany(mappedBy = "doctor", cascade = CascadeType.MERGE)
+    @JsonIgnore
     private Set<Appointment> appointments = new HashSet<>();
 
 }
