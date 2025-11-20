@@ -2,13 +2,12 @@ package com.example.studentsystem.model;
 
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -30,7 +29,7 @@ public class Appointment {
     private Patient patient;
 
     @ManyToOne
-    @JoinColumn(nullable = false, name = "doctor_id ")
+    @JoinColumn(nullable = false, name = "doctor_id")
     private Doctor doctor;
 
 }

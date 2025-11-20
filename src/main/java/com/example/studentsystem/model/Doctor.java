@@ -28,7 +28,6 @@ public class Doctor {
     private String email;
 
     @ManyToMany(mappedBy = "doctors")
-    @JsonIgnore
     private Set<Department> departments = new HashSet<>();
 
     @OneToMany(mappedBy = "doctor", cascade = CascadeType.MERGE)

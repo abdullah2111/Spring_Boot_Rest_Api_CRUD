@@ -1,6 +1,7 @@
 package com.example.studentsystem.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -23,6 +24,7 @@ public class Department {
     private String name;
 
     @OneToOne
+    @JsonIgnore
     private Doctor headDoctor;
 
 
@@ -32,6 +34,7 @@ public class Department {
             joinColumns =  @JoinColumn(name = "dpt_id"),
             inverseJoinColumns = @JoinColumn(name = "docotr_id")
     )
+    @JsonIgnore
     private Set<Doctor> doctors = new HashSet<>();
 
 }

@@ -35,7 +35,7 @@ public class DoctorService {
 
         Doctor savedDoctor = doctorRepository.save(doctor);
 
-        if(incoming.getDepartments() == null && incoming.getDepartments().isEmpty()){
+        if(incoming.getDepartments() == null || incoming.getDepartments().isEmpty()){
             return savedDoctor;
         }
 
@@ -86,13 +86,13 @@ public class DoctorService {
                 .orElseThrow(() -> new RuntimeException("Department not found: " + deptId));
 
 
-
-        doctor.getDepartments().add(department);
         department.getDoctors().add(doctor);
+        doctor.getDepartments().add(department);
 
+        departmentRepository.save(department);
         log.info("Successfully added Department {} to Doctor {}", department.getName(), doctor.getName());
 
-        return doctorRepository.save(doctor);
+        return doctor;
     }
 
 

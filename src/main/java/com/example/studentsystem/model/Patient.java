@@ -1,5 +1,6 @@
 package com.example.studentsystem.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -44,6 +45,7 @@ public class Patient {
     private Insurance insurance;
 
     @OneToMany(mappedBy = "patient", cascade = CascadeType.PERSIST)
+    @JsonIgnore
     private List<Appointment> appointments;
 
 

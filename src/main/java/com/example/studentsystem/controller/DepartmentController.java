@@ -30,6 +30,33 @@ public class DepartmentController {
     }
 
 
+    @PostMapping("/{departmentId}/head/{doctorId}")
+    public ResponseEntity<Department> addHead(@PathVariable Long departmentId,
+                                              @PathVariable Long doctorId) {
+
+        Department updated = departmentService.addHeadDoctor(departmentId, doctorId);
+        return ResponseEntity.ok(updated);
+    }
+
+
+    @PutMapping("/{departmentId}/head/{doctorId}")
+    public ResponseEntity<Department> changeHeadDoctor(@PathVariable Long departmentId,
+                                                    @PathVariable Long doctorId) {
+        Department updated = departmentService.changeHeadDoctor(departmentId, doctorId);
+        return ResponseEntity.ok(updated);
+    }
+
+
+
+
+
+    @DeleteMapping("/{departmentId}/head")
+    public ResponseEntity<Department> removeHeadDoctor(@PathVariable Long departmentId) {
+        Department updated = departmentService.removeHeadDoctor(departmentId);
+        return ResponseEntity.ok(updated);
+    }
+
+
 
 
 
