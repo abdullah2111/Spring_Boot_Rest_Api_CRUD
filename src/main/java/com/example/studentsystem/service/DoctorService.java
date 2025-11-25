@@ -1,6 +1,8 @@
 package com.example.studentsystem.service;
 
 
+import com.example.studentsystem.globalExceptions.DepartmentNotFoundException;
+import com.example.studentsystem.globalExceptions.DoctorNotFoundException;
 import com.example.studentsystem.model.Department;
 import com.example.studentsystem.model.Doctor;
 import com.example.studentsystem.repository.DepartmentRepository;
@@ -44,7 +46,7 @@ public class DoctorService {
         for(Department d :  incoming.getDepartments()){
             if(d.getId()!=null){
                 Department dbDpt = departmentRepository.findById(d.getId())
-                        .orElseThrow(() -> new RuntimeException("Department not found with id: " + d.getId()));
+                        .orElseThrow(() -> new DepartmentNotFoundException("Department not found with id: " + d.getId()));
 
                 dbDpt.getDoctors().add(savedDoctor);
                 departments.add(dbDpt);
@@ -68,12 +70,11 @@ public class DoctorService {
 
 
 
-    public Optional<Doctor> getDoctorById(Long id) {
+    public Doctor getDoctorById(Long id) {
         log.info("Fetching doctor by id: {}", id);
-        return doctorRepository.findById(id);
+        return doctorRepository.findById(id)
+                .orElseThrow(() -> new DoctorNotFoundException("Doctor not found with id: " + id)); // Correct exception handling
     }
-
-
 
 
 
@@ -81,9 +82,9 @@ public class DoctorService {
         log.info("Adding Department {} to Doctor {}", deptId, doctorId);
 
         Doctor doctor = doctorRepository.findById(doctorId)
-                .orElseThrow(() -> new RuntimeException("Doctor not found: " + doctorId));
+                .orElseThrow(() -> new DepartmentNotFoundException("Doctor not found: " + doctorId));
         Department department = departmentRepository.findById(deptId)
-                .orElseThrow(() -> new RuntimeException("Department not found: " + deptId));
+                .orElseThrow(() -> new DepartmentNotFoundException("Department not found: " + deptId));
 
 
         department.getDoctors().add(doctor);

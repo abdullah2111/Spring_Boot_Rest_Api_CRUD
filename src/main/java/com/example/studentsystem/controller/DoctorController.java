@@ -26,9 +26,8 @@ public class DoctorController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Doctor> getDoctorById(@PathVariable Long id) {
-        return doctorService.getDoctorById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+        Doctor doctor = doctorService.getDoctorById(id);
+        return ResponseEntity.ok(doctor);
     }
 
 
@@ -39,6 +38,7 @@ public class DoctorController {
         Doctor updated = doctorService.addDepartmentToDoctor(doctorId, deptId);
         return ResponseEntity.ok(updated);
     }
+
 
 
 

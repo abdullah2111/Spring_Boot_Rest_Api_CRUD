@@ -18,25 +18,15 @@ public class PatientController {
 
 
     @PostMapping("/create")
-    public ResponseEntity<Patient>  addPatient(@RequestBody Patient patient) {
+    public ResponseEntity<Patient> addPatient(@RequestBody Patient patient) {
         Patient saved = patientService.createPatient(patient);
         return ResponseEntity.status(HttpStatus.CREATED).body(saved);
     }
 
-
-//    @GetMapping("/all")
-//    public ResponseEntity<List<Patient>> getAllPatients() {
-//        return patientService.getAllPatientById(id).orElseThrow();
-//    }
-
-
-
-
     @GetMapping("/{id}")
     public ResponseEntity<Patient> getPatientById(@PathVariable Long id) {
-        return patientService.getPatientById(id)
-                .map(patient -> ResponseEntity.ok(patient))
-                .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+        Patient patient = patientService.getPatientById(id);
+        return ResponseEntity.ok(patient);
     }
 
 

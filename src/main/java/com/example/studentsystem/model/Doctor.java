@@ -14,6 +14,8 @@ import java.util.Set;
 @NoArgsConstructor
 public class Doctor {
 
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
